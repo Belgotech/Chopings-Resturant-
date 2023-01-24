@@ -1,0 +1,19 @@
+{
+  "name": "chopings",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Belgotech/resturant.git"
+  },
+  "author": "Beloved Obiora",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Belgotech/resturant/issues"
+  },
+  "homepage": "https://github.com/Belgotech/resturant#readme"
+}
