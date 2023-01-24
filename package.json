@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/Belgotech/resturant/issues"
   },
-  "homepage": "https://github.com/Belgotech/resturant#readme"
+  "homepage": "https://github.com/Belgotech/resturant#readme",
+  "devDependencies": {
+    "webpack": "^5.75.0"
+  }
 }
