@@ -2,11 +2,11 @@
   "presets": [
     "@babel/preset-env",
     {
-      "preset-env": {
-        "targets": {
-          "browsers": ["last 5 versions", "ie >= 8"]
-        }
-      }
+      // "preset-env": {
+      //   "targets": {
+      //     "browsers": ["last 5 versions", "ie >= 8"]
+      //   }
+      // }
     }
   ]
 }
