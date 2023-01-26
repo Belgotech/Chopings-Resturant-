@@ -1,15 +1,33 @@
 {
     "presets": ["@babel/preset-env"],
         "env": {
-            // "targets": {
-            //     "browsers": [
-            //         "last 5 versions",
-            //         "ie >= 8"
-            //     ]
-            // }
+            "targets": {
+                "browsers": [
+                    "last 5 versions",
+                    "ie >= 8"
+                ]
+            }
         }
     
 }
+
+// "production": {
+//     "presets": ["next/babel", {
+//       "preset-env": {
+//         "targets": {
+//           "browsers": ["last 2 versions", "safari >= 7"]
+//         }
+//       }
+//     }]
+//   },
+
+
+// "presets": [
+//     ["next/babel",
+//      { "preset-env":
+//       { "targets":
+//        { "browsers": ["last 2 versions", "safari >= 7"] } } }]
+//   ]
 
 // {
 //     "presets": ["@babel/preset-env"]
