@@ -9,7 +9,8 @@ async function getResult (querry) {
     }
 }
 
-getResult('pizza')
+// getResult('pizza')
+
 
 
 
