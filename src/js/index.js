@@ -2,9 +2,9 @@ import axios, { Axios } from 'axios'
 
 async function getResult (querry) {
     const key = '4d08ce58e497460ba4bc0aabe5b17da4'
-    try{
+    try {
     const res = await axios(`https://api.spoonacular.com/recipes/complexSearch?key=${key} ${querry}`)
-}
+    } catch
 }
 
 getResult('pizza')
