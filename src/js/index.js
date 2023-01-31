@@ -5,7 +5,7 @@ async function getResult (querry) {
     const proxy = 'https://cors-anywhere.herokuapp.com/'
     try {
     // const res = await axios(`https://api.spoonacular.com/recipes/complexSearch?apiKey=${key}?${querry}`)
-    const res = await axios(`https://forkify-api.herokuapp.com/api/get?r?apiKey=${key}?${querry}`)
+    const res = await axios(`https://forkify-api.herokuapp.com/api/get?${querry}`)
     console.log(res)
     } catch (error){
         alert(error)
