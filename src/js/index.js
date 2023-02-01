@@ -1,134 +1,114 @@
-// import axios, { Axios } from 'axios'
+/** @format */
+import { Search } from "./models/Search";
+import * as searchView from "./views/searchView";
+import * as recipeView from "./views/recipeView";
+import {
+	domNodeController,
+	spinLoader,
+	delLoader,
+	spinLoaderRecipe,
+} from "./views/base";
+import Recipe from "./models/Recipe";
+// import express from "express";
+// import cors from "cors";
+// const app = express();
+// app.use(cors());
 
-// async function getResult (querry) {
-//     const key = '4d08ce58e497460ba4bc0aabe5b17da4'
-//     const proxy = 'https://cors-anywhere.herokuapp.com/'
-//     try {
-//     // const res = await axios(`https://api.spoonacular.com/recipes/complexSearch?apiKey=${key}?${querry}`)
-//     const res = await axios(`https://forkify-api.herokuapp.com/api/get?`)
-//     console.log(res)
-//     } catch (error){
-//         alert(error)
-//     }
-// }
+//CREATE A STATE OBJECT FOR MY APPLICATION
+const state = {};
 
-// getResult()
-// getResult('pizza')
+//CREATE A FUNCTION THAT COLLECTS INPUT FROM THE USER AND CREATE A NEW SEARCH INSTANCE FOR THE ENTRY
+const collectSearchEntry = async () => {
+	//GET ENTRY
+	const query = searchView.getInputData();
+	console.log(query);
+	if (query) {
+		try {
+			//CREATE NEW SEARCH INSTANCE FROM SEACH CLASS AND SAVE IN STATE
+			state.search = new Search(query);
 
+			// //DISPLAY LOADER
+			// const resultDiv = domNodeController.resultDiv;
+			spinLoader(domNodeController.resultDiv);
 
-const axios = require("axios");
+			//CARRY OUT SEARCH AND DISPLAY RESULT
+			await state.search.connectApi();
+			// console.log(state.search.recipes);
 
-const options = {
-  method: 'GET',
-  url: 'https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/complexSearch',
-  params: {
-    query: 'pasta',
-    cuisine: 'italian',
-    excludeCuisine: 'greek',
-    diet: 'vegetarian',
-    intolerances: 'gluten',
-    equipment: 'pan',
-    includeIngredients: 'tomato,cheese',
-    excludeIngredients: 'eggs',
-    type: 'main course',
-    instructionsRequired: 'true',
-    fillIngredients: 'false',
-    addRecipeInformation: 'false',
-    titleMatch: 'Crock Pot',
-    maxReadyTime: '20',
-    ignorePantry: 'true',
-    sort: 'calories',
-    sortDirection: 'asc',
-    minCarbs: '10',
-    maxCarbs: '100',
-    minProtein: '10',
-    maxProtein: '100',
-    minCalories: '50',
-    maxCalories: '800',
-    minFat: '10',
-    maxFat: '100',
-    minAlcohol: '0',
-    maxAlcohol: '100',
-    minCaffeine: '0',
-    maxCaffeine: '100',
-    minCopper: '0',
-    maxCopper: '100',
-    minCalcium: '0',
-    maxCalcium: '100',
-    minCholine: '0',
-    maxCholine: '100',
-    minCholesterol: '0',
-    maxCholesterol: '100',
-    minFluoride: '0',
-    maxFluoride: '100',
-    minSaturatedFat: '0',
-    maxSaturatedFat: '100',
-    minVitaminA: '0',
-    maxVitaminA: '100',
-    minVitaminC: '0',
-    maxVitaminC: '100',
-    minVitaminD: '0',
-    maxVitaminD: '100',
-    minVitaminE: '0',
-    maxVitaminE: '100',
-    minVitaminK: '0',
-    maxVitaminK: '100',
-    minVitaminB1: '0',
-    maxVitaminB1: '100',
-    minVitaminB2: '0',
-    maxVitaminB2: '100',
-    minVitaminB5: '0',
-    maxVitaminB5: '100',
-    minVitaminB3: '0',
-    maxVitaminB3: '100',
-    minVitaminB6: '0',
-    maxVitaminB6: '100',
-    minVitaminB12: '0',
-    maxVitaminB12: '100',
-    minFiber: '0',
-    maxFiber: '100',
-    minFolate: '0',
-    maxFolate: '100',
-    minFolicAcid: '0',
-    maxFolicAcid: '100',
-    minIodine: '0',
-    maxIodine: '100',
-    minIron: '0',
-    maxIron: '100',
-    minMagnesium: '0',
-    maxMagnesium: '100',
-    minManganese: '0',
-    maxManganese: '100',
-    minPhosphorus: '0',
-    maxPhosphorus: '100',
-    minPotassium: '0',
-    maxPotassium: '100',
-    minSelenium: '0',
-    maxSelenium: '100',
-    minSodium: '0',
-    maxSodium: '100',
-    minSugar: '0',
-    maxSugar: '100',
-    minZinc: '0',
-    maxZinc: '100',
-    offset: '0',
-    number: '10',
-    limitLicense: 'false',
-    ranking: '2'
-  },
-  headers: {
-    'X-RapidAPI-Key': 'cb7b710f52mshe38f81889d65693p15941djsn902ec3ea4183',
-    'X-RapidAPI-Host': 'spoonacular-recipe-food-nutrition-v1.p.rapidapi.com'
-  }
+			//CLEAR INPUT
+			searchView.cleatInput();
+
+			//CLEAR UI
+			searchView.clearUI();
+
+			//DELETE SPIN LOADER
+			delLoader();
+
+			//DISPLAY SEARCH RESULT
+			searchView.displayResult(state.search.recipes);
+
+			// JOB API CONECT BELOW
+			// const newAPI = new JobAPI();
+			// const waitTime = await newAPI.connectAPI2();
+			// console.log(waitTime);
+		} catch (error) {
+			console.log(error);
+		}
+	}
 };
 
-axios.request(options).then(function (response) {
-	console.log(response.data);
-}).catch(function (error) {
-	console.error(error);
+domNodeController.searchFormSubmit.addEventListener("submit", (e) => {
+	e.preventDefault();
+	collectSearchEntry();
+	console.log("clicked");
 });
 
+//RECIPE CONSTROLLER
 
-//GET https://api.spoonacular.com/recipes/complexSearch
-// 4d08ce58e497460ba4bc0aabe5b17da4
-// https://cors-anywhere.herokuapp.com/
+// const recipe1 = new Recipe(47746);
+// recipe1.getRecipe();
+// console.log(recipe1);
+
+// const showHash = () => {
+
+// };
+
+const activateRecipe = async () => {
+	//GET ID
+	const id = window.location.hash.replace("#", "");
+	console.log(id);
+	if (id) {
+		try {
+			//CREATE NEW RECIPE AND SAVE TO STATE
+			state.recipe = new Recipe(id);
+
+			// //DISPLAY LOADER
+			// const resultDiv = domNodeController.resultDiv;
+			spinLoaderRecipe(domNodeController.recipe);
+
+			//GET RECIPE WTH METOD IN CLAS PROPER
+			await state.recipe.getRecipe();
+
+			//GET INGREDIENTS PREPARATION TIME
+			state.recipe.calcTime();
+
+			//GET SERVERS
+			state.recipe.calcServings();
+
+			//DELETE SPIN LOADER
+			delLoader();
+
+			//UPDATE RECIPE TO USER
+			recipeView.inputRecipe(state.recipe);
+			// console.log(state.recipe);
+
+			//GET INGREDIENT
+			state.recipe.handleIngredients();
+		} catch (error) {
+			console.log(error);
+		}
+	}
+};
+
+window.addEventListener("hashchange", activateRecipe);
+window.addEventListener("load", activateRecipe);
